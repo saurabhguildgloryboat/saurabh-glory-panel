@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saurabh Glory | Private Panel</title>
+<style>
+:root{--bg:#080d18;--panel:#101a2b;--panel2:#0d1524;--line:#23334d;--blue:#4c8dff;--cyan:#51d8ff;--text:#edf4ff;--muted:#8fa2bd;--gold:#ffbd59;--green:#43d9a3;--red:#ff7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#13294a 0,#080d18 55%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.wrap{max-width:1100px;margin:auto;padding:22px}.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:1.5px}.brand-mark{width:42px;height:42px;display:grid;place-items:center;border:1px solid #3869b2;border-radius:13px;background:linear-gradient(145deg,#163765,#101827);color:var(--cyan);font-size:20px}.brand span{color:var(--cyan)}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:28px}.pill{font-size:12px;color:var(--green);border:1px solid #235e52;background:#0d2a2a;padding:7px 11px;border-radius:99px}
+.card{background:linear-gradient(145deg,rgba(17,28,47,.97),rgba(11,19,33,.97));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 18px 45px #0003}.login-area{min-height:80vh;display:grid;place-items:center}.login-card{width:min(100%,420px);padding:30px}.login-card h1{font-size:27px;margin:20px 0 5px;letter-spacing:1px}.sub{color:var(--muted);font-size:13px;margin:0 0 25px}.label{display:block;font-size:12px;color:#b8c9e1;margin:15px 0 8px}.field{width:100%;background:#080f1c;border:1px solid #2b3d59;color:var(--text);padding:13px 14px;border-radius:10px;outline:none}.field:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4c8dff20}.btn{border:0;border-radius:11px;padding:13px 16px;font-weight:800;color:#06101d;background:linear-gradient(100deg,var(--cyan),var(--blue));width:100%;margin-top:19px}.btn:disabled{opacity:.55;cursor:not-allowed}.btn.secondary{background:#17243a;color:#dce9ff;border:1px solid #2b3d59}.note{font-size:11px;line-height:1.6;color:var(--muted);margin-top:18px}.error{color:var(--red);font-size:12px;min-height:18px;margin-top:10px}.headrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0 20px}.headrow h1{font-size:clamp(24px,4vw,34px);margin:0}.headrow p{color:var(--muted);margin:7px 0 0;font-size:13px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px}.stat{padding:18px}.stat .k{font-size:12px;color:var(--muted)}.stat .v{font-size:25px;font-weight:800;margin-top:10px}.stat .hint{font-size:11px;color:var(--cyan);margin-top:5px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.card h2{font-size:16px;margin:0 0 6px}.desc{font-size:12px;color:var(--muted);margin:0 0 18px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.small{font-size:11px;color:var(--muted)}.status{color:var(--gold);font-size:12px}.status.ok{color:var(--green)}.divider{height:1px;background:var(--line);margin:18px 0}.activity{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #1e2b40;font-size:12px}.activity:last-child{border:0}.dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);margin-top:4px;flex-shrink:0}.activity b{display:block;font-size:12px;margin-bottom:4px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:500px}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid #1f2c41}th{color:var(--muted);font-weight:600}.badge{display:inline-block;border-radius:99px;padding:5px 8px;font-size:10px;color:var(--gold);background:#332718}.empty{text-align:center;color:var(--muted);padding:26px 8px;font-size:12px}.foot{text-align:center;color:#60738f;font-size:11px;padding:25px 0 10px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#14243b;border:1px solid #315078;padding:12px 16px;border-radius:10px;font-size:12px;box-shadow:0 8px 30px #0008;max-width:90%;z-index:10}
+@media(max-width:760px){.wrap{padding:15px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.top{margin-bottom:20px}.headrow{align-items:flex-start}.headrow .pill{white-space:nowrap}.card{padding:17px}.login-card{padding:25px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="brand-mark">SG</div><div>SAURABH <span>GLORY</span><div class="small" style="letter-spacing:2px;margin-top:3px">PRIVATE CONTROL PANEL</div></div></div>
+    <div class="pill">● PANEL UI</div>
+  </header>
+
+  <section id="loginView" class="login-area">
+    <div class="card login-card">
+      <div class="brand"><div class="brand-mark">SG</div><div>SAURABH <span>GLORY</span></div></div>
+      <h1>Welcome back</h1>
+      <p class="sub">Sign in to your private panel</p>
+      <form id="loginForm">
+        <label class="label" for="username">USERNAME</label>
+        <input class="field" id="username" autocomplete="username" placeholder="Enter username" required>
+        <label class="label" for="password">PASSWORD</label>
+        <input class="field" id="password" type="password" autocomplete="current-password" placeholder="Enter password" required>
+        <label class="small" style="display:flex;align-items:center;gap:8px;margin-top:12px"><input type="checkbox" id="showPass"> Show password</label>
+        <button class="btn" type="submit">LOGIN TO DASHBOARD →</button>
+        <div id="loginError" class="error" role="status"></div>
+      </form>
+      <p class="note">Demo preview only. This page does not provide secure authentication. Do not enter a real or reused password. Add server-side authentication before publishing privately.</p>
+    </div>
+  </section>
+
+  <main id="dashboardView" class="hidden">
+    <div class="headrow">
+      <div><h1>Glory Dashboard</h1><p>Welcome, Saurabh. Monitor panel status from one place.</p></div>
+      <button class="btn secondary" id="logoutBtn" style="width:auto;margin:0">Log out</button>
+    </div>
+    <div class="stats">
+      <div class="card stat"><div class="k">TOTAL BOTS</div><div class="v" id="totalBots">0</div><div class="hint">This browser session</div></div>
+      <div class="card stat"><div class="k">RUNNING BOTS</div><div class="v" id="runningBots">0</div><div class="hint">Demo status</div></div>
+      <div class="card stat"><div class="k">TOTAL GLORY</div><div class="v" id="totalGlory">—</div><div class="hint">Live service not connected</div></div>
+      <div class="card stat"><div class="k">UPTIME</div><div class="v" id="uptime">00:00</div><div class="hint">Panel preview timer</div></div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Launch Glory Bot</h2><p class="desc">Enter a guild ID to create a local demo request.</p>
+        <form id="launchForm">
+          <div class="formgrid">
+            <div class="full"><label class="label" for="guildId">GUILD ID</label><input class="field" id="guildId" inputmode="numeric" placeholder="Enter Guild ID" required></div>
+            <div><label class="label" for="region">SERVER REGION</label><select class="field" id="region"><option value="IND">India (IND)</option><option value="SG">Singapore (SG)</option><option value="BR">Brazil (BR)</option><option value="US">United States (US)</option></select></div>
+            <div><label class="label" for="botCount">BOT COUNT</label><select class="field" id="botCount"><option>1</option><option>2</option><option>3</option><option>5</option><option>10</option></select></div>
+          </div>
+          <button class="btn" type="submit">LAUNCH DEMO REQUEST ↗</button>
+          <p class="note">Demo only: this button does not connect to Free Fire, launch real bots, join guilds, or generate Glory.</p>
+        </form>
+      </section>
+      <section class="card">
+        <div class="row"><h2>Live Status</h2><span class="status" id="connectionStatus">● NOT CONNECTED</span></div>
+        <p class="desc">Backend connection overview</p>
+        <div class="row"><span class="small">Backend API</span><b class="small">Not configured</b></div><div class="divider"></div>
+        <div class="row"><span class="small">Game service</span><b class="small">Not connected</b></div><div class="divider"></div>
+        <div class="row"><span class="small">Last update</span><b class="small" id="lastUpdate">—</b></div>
+        <div class="activity"><span class="dot"></span><div><b>Panel is ready</b><span class="small">Connect a secure, authorized backend to show real metrics.</span></div></div>
+      </section>
+    </div>
+    <section class="card" style="margin-top:16px">
+      <div class="row" style="margin-bottom:10px"><div><h2>Bot History</h2><p class="desc" style="margin:6px 0 0">Demo requests made in this session</p></div><button id="clearHistory" class="btn secondary" style="width:auto;margin:0">Clear history</button></div>
+      <div class="tablewrap"><table><thead><tr><th>GUILD ID</th><th>REGION</th><th>REQUESTED</th><th>STATUS</th><th>TIME</th></tr></thead><tbody id="historyRows"><tr><td colspan="5" class="empty">No demo requests yet.</td></tr></tbody></table></div>
+    </section>
+    <div class="foot">SAURABH GLORY · PRIVATE PANEL UI · DEMO MODE</div>
+  </main>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script>
+const loginView=document.getElementById('loginView'), dashboardView=document.getElementById('dashboardView');
+const loginForm=document.getElementById('loginForm'), loginError=document.getElementById('loginError');
+const showPass=document.getElementById('showPass'), password=document.getElementById('password');
+let startedAt=null, timer=null, requests=[];
+showPass.addEventListener('change',()=>password.type=showPass.checked?'text':'password');
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),3000)}
+/* Demo-only gate: do not treat this as real security. Configure server-side authentication before deployment. */
+loginForm.addEventListener('submit',e=>{e.preventDefault();loginError.textContent='';const u=document.getElementById('username').value.trim();const p=password.value;
+ if(!u||!p){loginError.textContent='Enter a username and password.';return}
+ loginView.classList.add('hidden');dashboardView.classList.remove('hidden');startedAt=Date.now();document.getElementById('lastUpdate').textContent=new Date().toLocaleTimeString();timer=setInterval(updateUptime,1000);updateUptime();toast('Preview opened. This is not secure authentication.');
+});
+function updateUptime(){if(!startedAt)return;let s=Math.floor((Date.now()-startedAt)/1000);document.getElementById('uptime').textContent=String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+document.getElementById('logoutBtn').addEventListener('click',()=>{if(timer)clearInterval(timer);timer=null;startedAt=null;dashboardView.classList.add('hidden');loginView.classList.remove('hidden');loginForm.reset();password.type='password';loginError.textContent='';});
+document.getElementById('launchForm').addEventListener('submit',e=>{e.preventDefault();const guild=document.getElementById('guildId').value.trim();if(!/^[0-9]{4,25}$/.test(guild)){toast('Enter a numeric Guild ID (4–25 digits).');return}
+ const item={guild,region:document.getElementById('region').value,count:document.getElementById('botCount').value,time:new Date().toLocaleTimeString()};requests.unshift(item);renderHistory();document.getElementById('totalBots').textContent=requests.reduce((n,x)=>n+Number(x.count),0);document.getElementById('runningBots').textContent='0';document.getElementById('totalGlory').textContent='—';document.getElementById('lastUpdate').textContent=item.time;toast('Demo request recorded only; no bot was launched.');e.target.reset();});
+function renderHistory(){const tbody=document.getElementById('historyRows');if(!requests.length){tbody.innerHTML='<tr><td colspan="5" class="empty">No demo requests yet.</td></tr>';return}tbody.innerHTML=requests.map(x=>`<tr><td>${escapeHtml(x.guild)}</td><td>${escapeHtml(x.region)}</td><td>${escapeHtml(x.count)} (demo)</td><td><span class="badge">PREVIEW ONLY</span></td><td>${escapeHtml(x.time)}</td></tr>`).join('')}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.getElementById('clearHistory').addEventListener('click',()=>{requests=[];renderHistory();document.getElementById('totalBots').textContent='0';document.getElementById('runningBots').textContent='0';toast('Demo history cleared.')});
+</script>
+</body>
+</html>
