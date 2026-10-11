@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0612">
+<title>Eren Glory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+html,body{margin:0;padding:0;background:#0a0612;color:#f0eaff;
+          font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+          overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
+:root{
+  --violet:#8b5cf6; --violet-2:#c084fc; --violet-3:#6d28d9;
+  --ember:#fb923c; --ember-2:#f59e0b;
+  --green:#4ade80; --rose:#f43f5e; --amber:#fbbf24;
+  --text:#f0eaff; --muted:#a99ac7; --dim:#6d5f8a;
+  --line:rgba(220,210,255,.08); --line-2:rgba(220,210,255,.15);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bg::before,.bg::after{content:"";position:absolute;border-radius:50%;filter:blur(100px)}
+.bg::before{width:600px;height:600px;top:-220px;left:-180px;
+            background:radial-gradient(circle,rgba(139,92,246,.4),transparent 65%);
+            animation:o1 24s ease-in-out infinite}
+.bg::after{width:520px;height:520px;bottom:-200px;right:-160px;
+            background:radial-gradient(circle,rgba(251,146,60,.28),transparent 65%);
+            animation:o2 28s ease-in-out infinite}
+@keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
+@keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(-90px,-60px)}}
+.app{position:relative;z-index:1;min-height:100vh;padding:26px 30px 60px;max-width:1280px;margin:0 auto}
+
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.logo{position:relative;width:44px;height:44px;flex:none;display:grid;place-items:center;
+      border-radius:13px;color:#fff;
+      background:linear-gradient(150deg,var(--violet-2),var(--violet) 45%,var(--ember) 130%);
+      box-shadow:0 14px 32px -14px rgba(139,92,246,.8),
+                 0 8px 22px -12px rgba(251,146,60,.6),
+                 inset 0 1px 0 rgba(255,255,255,.35)}
+.logo::after{content:"";position:absolute;inset:0;border-radius:13px;
+             border:1px solid rgba(255,255,255,.2)}
+.brand b{font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:600}
+.brand div{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:2px}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill-badge{display:inline-flex;align-items:center;gap:6px;
+            padding:7px 12px;border-radius:100px;font-size:12px;font-weight:600;
+            border:1px solid var(--line-2);background:rgba(220,210,255,.03);
+            color:var(--muted);transition:all .25s var(--ease);cursor:default}
+.pill-badge i{color:var(--violet-2)}
+.pill-badge.credits i{color:var(--ember)}
+.pill-badge.admin{border-color:rgba(244,63,94,.4);
+                  background:linear-gradient(135deg,rgba(244,63,94,.14),transparent);
+                  color:#ff9fb0}
+.pill-badge.admin i{color:var(--rose)}
+.icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line-2);
+          background:rgba(220,210,255,.03);color:var(--muted);cursor:pointer;
+          display:grid;place-items:center;transition:all .25s var(--ease)}
+.icon-btn:hover{color:var(--text);border-color:rgba(139,92,246,.4);
+                background:rgba(139,92,246,.1);transform:translateY(-1px)}
+.icon-btn.danger:hover{color:#ff7a90;border-color:rgba(244,63,94,.35);
+                       background:rgba(244,63,94,.08)}
+
+.hero{border-radius:20px;padding:24px 26px;margin-bottom:20px;
+      border:1px solid var(--line);
+      background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(251,146,60,.08) 60%,rgba(20,12,40,.7));
+      position:relative;overflow:hidden;box-shadow:0 24px 60px -30px rgba(139,92,246,.4)}
+.hero::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+             background:linear-gradient(90deg,transparent,rgba(192,132,252,.6),transparent)}
+.hero h1{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:500;
+         margin:0 0 6px;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;
+            background:linear-gradient(120deg,var(--violet-2),var(--ember));
+            -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:13px;margin:0}
+.hero-pulse{position:absolute;right:22px;top:50%;transform:translateY(-50%);
+            display:flex;align-items:center;gap:8px;font-size:11px;
+            color:var(--muted);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);
+          box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:livePulse 2s ease-out infinite}
+.live-dot.amber{background:var(--amber);box-shadow:0 0 0 0 rgba(251,191,36,.7)}
+.live-dot.rose{background:var(--rose);box-shadow:0 0 0 0 rgba(244,63,94,.7);animation:none}
+.live-dot.dim{background:var(--dim);box-shadow:none;animation:none}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.7)}
+                    100%{box-shadow:0 0 0 12px rgba(74,222,128,0)}}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.stats{grid-template-columns:1fr}}
+.stat{border-radius:16px;padding:16px;border:1px solid var(--line);
+      background:linear-gradient(160deg,rgba(28,16,52,.7),rgba(14,8,28,.7));
+      position:relative;overflow:hidden;transition:all .3s var(--ease)}
+.stat:hover{transform:translateY(-4px);border-color:var(--line-2);
+            box-shadow:0 20px 40px -22px rgba(139,92,246,.5)}
+.stat::before{content:"";position:absolute;top:-40px;right:-40px;width:130px;height:130px;
+              border-radius:50%;
+              background:radial-gradient(circle,rgba(139,92,246,.2),transparent 65%);
+              transition:transform .4s var(--ease)}
+.stat:hover::before{transform:scale(1.3)}
+.stat.ember::before{background:radial-gradient(circle,rgba(251,146,60,.2),transparent 65%)}
+.stat.green::before{background:radial-gradient(circle,rgba(74,222,128,.2),transparent 65%)}
+.stat .ico{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;
+           background:rgba(139,92,246,.14);color:var(--violet-2);
+           font-size:13px;margin-bottom:10px;border:1px solid rgba(139,92,246,.2)}
+.stat.ember .ico{background:rgba(251,146,60,.14);color:var(--ember);
+                 border-color:rgba(251,146,60,.25)}
+.stat.green .ico{background:rgba(74,222,128,.14);color:var(--green);
+                 border-color:rgba(74,222,128,.25)}
+.stat .lbl{font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+           color:var(--dim);font-weight:600;margin-bottom:4px}
+.stat .val{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;
+           letter-spacing:-.02em;transition:color .3s var(--ease)}
+.stat .val.bump{animation:bump .5s var(--ease)}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.12);color:var(--green)}
+                100%{transform:scale(1)}}
+
+.section{border-radius:18px;border:1px solid var(--line);
+         background:linear-gradient(160deg,rgba(28,16,52,.65),rgba(14,8,28,.65));
+         backdrop-filter:blur(10px);margin-bottom:20px;overflow:hidden;
+         box-shadow:0 20px 50px -32px rgba(0,0,0,.8);transition:border-color .3s var(--ease)}
+.sec-head{display:flex;align-items:center;justify-content:space-between;
+          padding:16px 20px;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.sec-head h2{font-size:14px;font-weight:700;margin:0;display:flex;align-items:center;gap:9px}
+.sec-head h2 i{color:var(--violet-2);font-size:13px}
+.sec-head .sub{font-size:11px;color:var(--dim);margin-top:3px}
+.sec-body{padding:20px}
+
+.form-grid{display:grid;grid-template-columns:1.6fr 1.4fr 1.4fr;gap:12px;align-items:end}
+@media(max-width:820px){.form-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.form-grid{grid-template-columns:1fr}}
+.field label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;
+             text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.field input{width:100%;height:44px;padding:0 13px;border-radius:11px;
+      border:1px solid var(--line-2);background:rgba(220,210,255,.03);
+      color:var(--text);font-size:13px;outline:none;
+      font-family:'JetBrains Mono',monospace;transition:all .2s var(--ease)}
+.field input::placeholder{color:#5f4c82}
+.field input:focus{border-color:rgba(139,92,246,.4);
+      background:rgba(139,92,246,.06);box-shadow:0 0 0 4px rgba(139,92,246,.1)}
+.field .static-val{height:44px;padding:0 13px;border-radius:11px;display:flex;
+                   align-items:center;gap:8px;
+                   border:1px solid var(--line-2);background:rgba(220,210,255,.03);
+                   font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--muted)}
+.field .static-val i{color:var(--violet-2);font-size:12px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+     height:44px;padding:0 20px;border-radius:11px;cursor:pointer;
+     border:1px solid var(--line-2);background:rgba(220,210,255,.03);
+     color:var(--text);font-size:13px;font-weight:600;
+     transition:all .25s var(--ease);white-space:nowrap}
+.btn:hover{border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.08);
+           transform:translateY(-2px)}
+.btn.primary{border:0;
+  background:linear-gradient(135deg,var(--violet-2),var(--violet) 45%,var(--ember) 130%);
+  color:#fff;box-shadow:0 14px 32px -14px rgba(139,92,246,.8),
+                        0 10px 26px -16px rgba(251,146,60,.55)}
+.btn.danger{border:0;background:linear-gradient(135deg,#ff5f6d,#e11d48);color:#fff}
+.btn.warn{border:0;background:linear-gradient(135deg,var(--ember),var(--ember-2));color:#fff}
+.btn.green{border:0;background:linear-gradient(135deg,#4ade80,#22c55e);color:#052e16}
+.btn.small{height:34px;padding:0 12px;font-size:12px;border-radius:9px}
+.btn.ghost{background:transparent;border:1px solid var(--line-2)}
+.btn.icon-only{padding:0;width:34px}
+.btn:disabled{opacity:.45;pointer-events:none}
+.btn i{font-size:12px}
+
+.jobs-list{display:flex;flex-direction:column;gap:12px}
+.job-card{border-radius:14px;padding:16px;border:1px solid var(--line);
+          background:linear-gradient(160deg,rgba(28,16,52,.75),rgba(14,8,28,.75));
+          position:relative;overflow:hidden;transition:all .3s var(--ease)}
+.job-card:hover{transform:translateY(-2px);border-color:var(--line-2);
+                box-shadow:0 16px 36px -22px rgba(139,92,246,.6)}
+.job-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+                  background:linear-gradient(180deg,var(--violet-2),var(--ember))}
+.job-card[data-status="paused"]::before{background:linear-gradient(180deg,#fbbf24,#f59e0b)}
+.job-card[data-status="stopped"]::before,
+.job-card[data-status="done"]::before{background:linear-gradient(180deg,#6d5f8a,#4c3d6b)}
+.job-card[data-status="error"]::before{background:linear-gradient(180deg,#f43f5e,#b91c1c)}
+
+.job-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.job-title{font-size:15px;font-weight:700;letter-spacing:-.01em;flex:1;min-width:200px}
+.job-title .badge{font-size:9.5px;font-weight:700;
+                  padding:3px 8px;border-radius:100px;margin-left:8px;
+                  letter-spacing:.08em;text-transform:uppercase;vertical-align:middle}
+.badge.run{background:rgba(74,222,128,.15);color:var(--green);
+           border:1px solid rgba(74,222,128,.4)}
+.badge.paused{background:rgba(251,191,36,.15);color:var(--amber);
+              border:1px solid rgba(251,191,36,.4)}
+.badge.stopped,.badge.done{background:rgba(109,95,138,.15);color:var(--dim);
+              border:1px solid rgba(109,95,138,.4)}
+.badge.error{background:rgba(244,63,94,.15);color:var(--rose);
+             border:1px solid rgba(244,63,94,.4)}
+.badge.starting,.badge.restarting{background:rgba(139,92,246,.15);color:var(--violet-2);
+             border:1px solid rgba(139,92,246,.4);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.job-meta{font-family:'JetBrains Mono',monospace;font-size:11px;
+          color:var(--dim);margin-top:3px}
+
+.job-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+@media(max-width:600px){.job-stats{grid-template-columns:repeat(2,1fr)}}
+.jstat{padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+       background:rgba(220,210,255,.02);transition:all .25s var(--ease)}
+.jstat:hover{border-color:var(--line-2);background:rgba(220,210,255,.04)}
+.jstat .l{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+          color:var(--dim);font-weight:700;margin-bottom:3px}
+.jstat .v{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600}
+.jstat.glory .v{color:var(--ember)}
+.jstat.green .v{color:var(--green)}
+
+.job-actions{display:flex;gap:8px;flex-wrap:wrap}
+.job-actions .btn{height:36px;padding:0 14px;font-size:12px}
+
+.empty-state{text-align:center;padding:34px 20px;color:var(--dim)}
+.empty-state .icon{font-size:32px;margin-bottom:12px;color:var(--violet-2);opacity:.5}
+.empty-state h3{font-size:14px;color:var(--muted);margin:0 0 6px;font-weight:600}
+.empty-state p{font-size:12px;margin:0;line-height:1.6}
+
+.history{width:100%;border-collapse:collapse;font-size:12.5px}
+.history th{text-align:left;font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+            color:var(--dim);font-weight:700;padding:10px 6px;border-bottom:1px solid var(--line)}
+.history td{padding:11px 6px;border-bottom:1px solid var(--line);color:var(--muted)}
+.history tr:hover td{background:rgba(220,210,255,.03)}
+.history td.g{font-family:'JetBrains Mono',monospace;color:var(--ember);font-weight:600}
+
+.admin-row{display:flex;align-items:center;gap:10px;padding:10px 12px;
+           border-radius:10px;border:1px solid var(--line);
+           background:rgba(220,210,255,.02);margin-bottom:8px}
+.admin-row .un{font-weight:600;font-size:13px;flex:1}
+.admin-row .cr{font-family:'JetBrains Mono',monospace;color:var(--ember);
+               font-size:12px;font-weight:600}
+.admin-row input{width:80px;height:34px;padding:0 10px;border-radius:8px;
+      border:1px solid var(--line-2);background:rgba(220,210,255,.03);
+      color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none}
+.admin-row button{height:34px;padding:0 14px;border-radius:8px;
+      border:1px solid rgba(139,92,246,.3);background:rgba(139,92,246,.1);
+      color:var(--violet-2);font-size:12px;font-weight:700;cursor:pointer}
+
+.admin-banner{display:flex;align-items:center;gap:10px;
+  padding:14px 18px;border-radius:14px;margin-bottom:18px;
+  border:1px solid rgba(244,63,94,.35);
+  background:linear-gradient(135deg,rgba(244,63,94,.14),rgba(139,92,246,.08));
+  color:#ff9fb0;font-size:12.5px;font-weight:600}
+.admin-banner i{color:var(--rose);font-size:14px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(140%);
+       padding:12px 20px;border-radius:11px;font-size:13px;font-weight:600;
+       background:linear-gradient(135deg,rgba(28,16,52,.95),rgba(14,8,28,.95));
+       border:1px solid var(--line-2);color:var(--text);z-index:400;
+       transition:transform .35s var(--ease);pointer-events:none;
+       box-shadow:0 20px 40px -16px rgba(0,0,0,.7);max-width:90vw;backdrop-filter:blur(12px)}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.toast.err{border-color:rgba(244,63,94,.4);color:#ff9fb0}
+.toast.ok{border-color:rgba(74,222,128,.4);color:#8ef0a8}
+.toast.warn{border-color:rgba(251,191,36,.4);color:#fde68a}
+
+.drawer-backdrop{position:fixed;inset:0;background:rgba(5,2,10,.65);
+                 backdrop-filter:blur(6px);z-index:298;
+                 opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+.drawer-backdrop.on{opacity:1;pointer-events:auto}
+.terminal-drawer{position:fixed;top:0;right:0;bottom:0;width:min(600px,92vw);
+                 background:linear-gradient(160deg,#0f0820,#07030f);
+                 border-left:1px solid var(--line-2);z-index:300;
+                 transform:translateX(105%);transition:transform .38s var(--ease);
+                 display:flex;flex-direction:column;
+                 box-shadow:-30px 0 80px -30px rgba(0,0,0,.9)}
+.terminal-drawer.on{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;gap:12px;padding:16px 20px;
+             border-bottom:1px solid var(--line);flex-shrink:0;flex-wrap:wrap}
+.drawer-head h2{font-size:14px;font-weight:700;margin:0;
+                display:flex;align-items:center;gap:9px}
+.drawer-head h2 i{color:var(--violet-2);font-size:13px}
+.drawer-head .job-picker{flex:1;display:flex;gap:8px;flex-wrap:wrap}
+.job-chip{padding:6px 10px;border-radius:9px;font-size:11px;font-weight:600;
+          border:1px solid var(--line-2);background:rgba(220,210,255,.03);
+          color:var(--muted);cursor:pointer;font-family:'JetBrains Mono',monospace;
+          transition:all .2s var(--ease);white-space:nowrap}
+.job-chip:hover{border-color:rgba(139,92,246,.4);color:var(--text)}
+.job-chip.on{border-color:var(--violet-2);background:rgba(139,92,246,.15);
+             color:var(--violet-2)}
+.drawer-body{flex:1;overflow:hidden;padding:14px;display:flex;flex-direction:column}
+.console{flex:1;border-radius:12px;border:1px solid var(--line);
+         background:#050210;overflow-y:auto;padding:12px 14px;
+         font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.7;
+         color:var(--muted);scroll-behavior:smooth}
+.console::-webkit-scrollbar{width:8px}
+.console::-webkit-scrollbar-track{background:transparent}
+.console::-webkit-scrollbar-thumb{background:rgba(192,132,252,.2);border-radius:100px}
+.console-line{display:flex;gap:8px;padding:2px 0;
+              border-bottom:1px dashed rgba(220,210,255,.04);animation:fadeInLine .3s var(--ease)}
+@keyframes fadeInLine{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+.console-line:last-child{border-bottom:0}
+.console-line .time{color:#4c3d6b;flex:none}
+.console-line .squad{color:var(--violet-2);font-weight:600;flex:none}
+.console-line.warn .msg{color:#fbbf24}
+.console-line.err .msg{color:#ff7a90}
+.console-line.ok .msg{color:#6ee7b7}
+.console-line.reward .msg{color:var(--ember);font-weight:600}
+.console-empty{color:#4c3d6b;font-style:italic;text-align:center;padding:30px 0}
+.drawer-foot{display:flex;gap:10px;padding:12px 14px;
+             border-top:1px solid var(--line);flex-shrink:0;flex-wrap:wrap}
+
+@media(max-width:520px){
+  .app{padding:18px 14px 40px}
+  .hero{padding:20px}.hero h1{font-size:21px}
+  .hero-pulse{position:static;transform:none;margin-top:10px}
+  .sec-body{padding:16px}
+  .stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="app">
+
+  <div class="topbar">
+    <div class="logo"><i class="fas fa-fire"></i></div>
+    <div class="brand">
+      <b>Eren Glory</b>
+      <div>Command Center</div>
+    </div>
+    <div class="topbar-right">
+      <div class="pill-badge credits"><i class="fas fa-coins"></i> <span id="creditsVal">0</span></div>
+      <div class="pill-badge"><i class="fas fa-fire"></i> <span id="gloryVal">0</span></div>
+      <div class="pill-badge admin" id="adminPill" style="display:none">
+        <i class="fas fa-shield-halved"></i> Admin
+      </div>
+      <button class="icon-btn" onclick="openTerminal()" title="Terminal">
+        <i class="fas fa-bars"></i>
+      </button>
+      <button class="icon-btn danger" onclick="logout()" title="Logout">
+        <i class="fas fa-right-from-bracket"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Welcome back, <em id="greetName">…</em></h1>
+    <p>Deploy squads — each one becomes a job below. Pause, restart, or stop anytime.</p>
+    <div class="hero-pulse"><span class="live-dot" id="heroDot"></span>
+      <span id="heroStatus">Idle</span></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat ember">
+      <div class="ico"><i class="fas fa-fire"></i></div>
+      <div class="lbl">Total Glory</div>
+      <div class="val" id="statGlory">0</div>
+    </div>
+    <div class="stat green">
+      <div class="ico"><i class="fas fa-satellite-dish"></i></div>
+      <div class="lbl">Active Jobs</div>
+      <div class="val" id="statActive">0</div>
+    </div>
+    <div class="stat">
+      <div class="ico"><i class="fas fa-list-check"></i></div>
+      <div class="lbl">Total Jobs</div>
+      <div class="val" id="statJobs">0</div>
+    </div>
+    <div class="stat">
+      <div class="ico"><i class="fas fa-coins"></i></div>
+      <div class="lbl">Credits</div>
+      <div class="val" id="statCredits">0</div>
+    </div>
+  </div>
+
+  <div class="admin-banner" id="adminBanner" style="display:none">
+    <i class="fas fa-shield-halved"></i>
+    Admin session — unlimited squads, no time cap.
+  </div>
+
+  <div class="section">
+    <div class="sec-head">
+      <div>
+        <h2><i class="fas fa-rocket"></i> Deploy</h2>
+        <div class="sub" id="deployCostLine">1 credit per squad · region IND · max 8 hours</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Region</label>
+          <div class="static-val"><i class="fas fa-location-dot"></i> India (IND)</div>
+        </div>
+        <div class="field">
+          <label id="sqLabel">Squads (1–2)</label>
+          <input id="fSquads" type="number" value="1" min="1" max="2">
+        </div>
+        <div class="field">
+          <label>Clan ID <span style="color:#5f4c82">(optional)</span></label>
+          <input id="fClan" type="text" placeholder="3055342585" inputmode="numeric">
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <button class="btn primary" id="deployBtn" onclick="deploy()">
+          <i class="fas fa-play"></i> <span id="deployBtnLabel">Deploy job</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="jobsCard">
+    <div class="sec-head">
+      <div>
+        <h2><i class="fas fa-satellite-dish"></i> Jobs</h2>
+        <div class="sub" id="jobsSub">Deployed jobs appear here · auto-refresh live</div>
+      </div>
+      <button class="btn small" onclick="refreshJobs()">
+        <i class="fas fa-rotate"></i> Refresh
+      </button>
+    </div>
+    <div class="sec-body">
+      <div class="jobs-list" id="jobsList">
+        <div class="empty-state">
+          <div class="icon"><i class="fas fa-rocket"></i></div>
+          <h3>No jobs yet</h3>
+          <p>Deploy a squad above to create your first job.<br>
+             You can pause, restart, or stop each job individually.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head">
+      <div>
+        <h2><i class="fas fa-clock-rotate-left"></i> History</h2>
+        <div class="sub">Your last 20 completed runs</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div style="overflow-x:auto">
+        <table class="history">
+          <thead><tr>
+            <th>When</th><th>Region</th><th>Squads</th><th>Duration</th><th>Glory</th>
+          </tr></thead>
+          <tbody id="historyBody">
+            <tr><td colspan="5" style="text-align:center;color:#6d5f8a;padding:18px">
+              No runs yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="adminCard" style="display:none">
+    <div class="sec-head">
+      <div>
+        <h2><i class="fas fa-users-gear"></i> Admin · Users</h2>
+        <div class="sub">Grant credits to any user</div>
+      </div>
+      <button class="btn small" onclick="loadUsers()"><i class="fas fa-rotate"></i> Refresh</button>
+    </div>
+    <div class="sec-body" id="usersBody"></div>
+  </div>
+
+</div>
+
+<div class="drawer-backdrop" id="drawerBackdrop" onclick="closeTerminal()"></div>
+
+<div class="terminal-drawer" id="terminalDrawer">
+  <div class="drawer-head">
+    <h2><i class="fas fa-terminal"></i> Terminal</h2>
+    <div class="job-picker" id="jobPicker"></div>
+    <button class="icon-btn" onclick="closeTerminal()" title="Close">
+      <i class="fas fa-xmark"></i>
+    </button>
+  </div>
+  <div class="drawer-body">
+    <div class="console" id="console">
+      <div class="console-empty">Select a job to view its logs…</div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn small ghost" onclick="clearConsole()">
+      <i class="fas fa-eraser"></i> Clear
+    </button>
+    <button class="btn small ghost" onclick="scrollConsoleBottom()">
+      <i class="fas fa-arrow-down"></i> Bottom
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const REGION = 'IND';
+
+let me = null;
+let jobs = [];
+let selectedJobId = null;
+let jobSince = {};      // job_id -> last event index seen
+let jobsTimer = null;
+let termTimer = null;
+
+function toast(msg, kind='') {
+  const t = $('toast');
+  t.textContent = msg; t.className = 'toast on ' + kind;
+  clearTimeout(t._to);
+  t._to = setTimeout(() => { t.className = 'toast ' + kind; }, 2400);
+}
+function fmt(n) { return (Number(n) || 0).toLocaleString(); }
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function bump(el) { if (!el) return; el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+function fmtAgo(ts) {
+  if (!ts) return '—';
+  const s = Math.max(0, Math.floor(Date.now()/1000 - ts));
+  if (s < 60) return s + 's ago';
+  if (s < 3600) return Math.floor(s/60) + 'm ago';
+  return Math.floor(s/3600) + 'h ' + Math.floor((s%3600)/60) + 'm ago';
+}
+function fmtDur(sec) {
+  if (!sec && sec !== 0) return '—';
+  sec = Math.max(0, Math.floor(sec));
+  if (sec < 60) return sec + 's';
+  if (sec < 3600) return Math.floor(sec/60) + 'm ' + (sec%60) + 's';
+  return Math.floor(sec/3600) + 'h ' + Math.floor((sec%3600)/60) + 'm';
+}
+
+async function loadMe() {
+  const r = await fetch('/api/me');
+  if (r.status === 401) { location.href = '/'; return; }
+  const d = await r.json();
+  me = d.user;
+  $('greetName').textContent = me.username;
+  $('creditsVal').textContent = me.admin ? '∞' : fmt(me.credits);
+  $('gloryVal').textContent = fmt(me.total_glory);
+  $('statCredits').textContent = me.admin ? '∞' : fmt(me.credits);
+  $('statGlory').textContent = fmt(me.total_glory);
+  if (me.admin) {
+    $('adminPill').style.display = '';
+    $('adminBanner').style.display = 'flex';
+    $('adminCard').style.display = 'block';
+    $('sqLabel').textContent = 'Squads (1–8)';
+    $('fSquads').max = 8;
+    $('deployCostLine').textContent = 'Admin — no credits required · region IND';
+    loadUsers();
+  } else {
+    $('sqLabel').textContent = 'Squads (1–2)';
+    $('fSquads').max = 2;
+    updateDeployCost();
+  }
+  renderHistory(me.history || []);
+}
+
+function renderHistory(history) {
+  const body = $('historyBody');
+  if (!history || !history.length) {
+    body.innerHTML = `<tr><td colspan="5"
+      style="text-align:center;color:#6d5f8a;padding:18px">No runs yet</td></tr>`;
+    return;
+  }
+  body.innerHTML = history.slice().reverse().map(h => {
+    const when = (h.started_at || '').replace('T',' ').slice(0,16);
+    const dur = h.duration ? fmtDur(h.duration) : '—';
+    return `<tr>
+      <td>${escapeHtml(when)}</td>
+      <td>${escapeHtml(h.region||'—')}</td>
+      <td>${h.squads||'—'}</td>
+      <td>${escapeHtml(dur)}</td>
+      <td class="g">+${fmt(h.glory)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function updateDeployCost() {
+  if (!me || me.admin) return;
+  const c = Math.max(1, parseInt($('fSquads').value || 1));
+  $('deployCostLine').textContent = `${c} credit(s) · region IND · max 8 hours`;
+}
+
+async function deploy() {
+  const squads = parseInt($('fSquads').value) || 1;
+  const clan = $('fClan').value.trim() || null;
+  $('deployBtn').disabled = true;
+  $('deployBtnLabel').textContent = 'Starting…';
+  try {
+    const r = await fetch('/api/glory/start', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({region: REGION, squads, clan_id: clan})
+    });
+    const d = await r.json();
+    if (d.status !== 'ok') {
+      toast(d.error || 'Failed to start', 'err');
+      $('deployBtn').disabled = false;
+      $('deployBtnLabel').textContent = 'Deploy job';
+      return;
+    }
+    toast('Job started', 'ok');
+    $('fClan').value = '';
+    await refreshJobs();
+    selectJob(d.job_id);
+    openTerminal();
+  } catch (e) {
+    toast('Network error', 'err');
+  } finally {
+    $('deployBtn').disabled = false;
+    $('deployBtnLabel').textContent = 'Deploy job';
+  }
+}
+
+function statusBadge(s) {
+  const m = {
+    running:'run', paused:'paused', stopped:'stopped',
+    starting:'starting', restarting:'restarting',
+    done:'done', error:'error', idle:'stopped'
+  };
+  return `<span class="badge ${m[s] || 'stopped'}">${escapeHtml(s)}</span>`;
+}
+
+function jobCard(j) {
+  const elapsed = (j.status === 'running' || j.status === 'paused')
+    ? (Date.now()/1000 - (j.started_at || Date.now()/1000))
+    : ((j.stopped_at && j.started_at) ? (j.stopped_at - j.started_at) : 0);
+  const glory = j.glory || 0;
+  const canPause   = j.status === 'running';
+  const canResume  = j.status === 'paused';
+  const canStop    = ['running','paused','starting','restarting'].includes(j.status);
+  const canRestart = ['running','paused','stopped','done','error'].includes(j.status);
+
+  return `<div class="job-card" data-status="${escapeHtml(j.status)}" data-id="${escapeHtml(j.id)}">
+    <div class="job-head">
+      <div class="job-title">
+        Job ${escapeHtml(j.id)}
+        ${statusBadge(j.status)}
+      </div>
+      <div class="job-actions">
+        ${canPause ? `<button class="btn warn small" onclick="jobPause('${escapeHtml(j.id)}')">
+          <i class="fas fa-pause"></i> Pause</button>` : ''}
+        ${canResume ? `<button class="btn green small" onclick="jobResume('${escapeHtml(j.id)}')">
+          <i class="fas fa-play"></i> Resume</button>` : ''}
+        ${canRestart ? `<button class="btn small" onclick="jobRestart('${escapeHtml(j.id)}')">
+          <i class="fas fa-rotate"></i> Restart</button>` : ''}
+        ${canStop ? `<button class="btn danger small" onclick="jobStop('${escapeHtml(j.id)}')">
+          <i class="fas fa-stop"></i> Stop</button>` : ''}
+        <button class="btn small ghost icon-only" onclick="selectJob('${escapeHtml(j.id)}');openTerminal()" title="Logs">
+          <i class="fas fa-terminal"></i>
+        </button>
+        <button class="btn small ghost icon-only" onclick="jobDelete('${escapeHtml(j.id)}')" title="Delete">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <div class="job-meta">
+      ${escapeHtml(j.region)} · ${j.squads} squad${j.squads>1?'s':''}
+      ${j.clan_id ? ' · clan ' + escapeHtml(String(j.clan_id)) : ''}
+      · started ${escapeHtml(fmtAgo(j.started_at))}
+      · elapsed ${escapeHtml(fmtDur(elapsed))}
+      ${j.phase ? ' · ' + escapeHtml(j.phase) : ''}
+    </div>
+    <div class="job-stats">
+      <div class="jstat glory"><div class="l">Glory</div><div class="v">+${fmt(glory)}</div></div>
+      <div class="jstat"><div class="l">Rewards</div><div class="v">${Object.keys(j.rewards||{}).length}</div></div>
+      <div class="jstat"><div class="l">Squads</div><div class="v">${Object.keys(j.squad_status||{}).length}</div></div>
+      <div class="jstat green"><div class="l">Events</div><div class="v">${fmt(j.event_count||0)}</div></div>
+    </div>
+    ${j.error ? `<div style="font-size:11px;color:#ff9fb0;margin-top:8px">
+      <i class="fas fa-circle-exclamation"></i> ${escapeHtml(j.error)}</div>` : ''}
+  </div>`;
+}
+
+async function refreshJobs() {
+  try {
+    const r = await fetch('/api/jobs');
+    if (!r.ok) return;
+    const d = await r.json();
+    const prevActive = jobs.filter(x => ['running','paused'].includes(x.status)).length;
+    jobs = d.jobs || [];
+    $('statJobs').textContent = jobs.length;
+    $('statActive').textContent = d.active || 0;
+    $('jobsSub').textContent = jobs.length
+      ? `${jobs.length} job(s) · ${d.active||0} active`
+      : 'Deployed jobs appear here · auto-refresh live';
+    const hero = d.active > 0 ? 'Running' : 'Idle';
+    $('heroStatus').textContent = hero;
+    $('heroDot').className = 'live-dot' + (d.active > 0 ? '' : ' dim');
+
+    const list = $('jobsList');
+    if (!jobs.length) {
+      list.innerHTML = `<div class="empty-state">
+        <div class="icon"><i class="fas fa-rocket"></i></div>
+        <h3>No jobs yet</h3>
+        <p>Deploy a squad above to create your first job.<br>
+           You can pause, restart, or stop each job individually.</p>
+      </div>`;
+    } else {
+      list.innerHTML = jobs.map(jobCard).join('');
+    }
+    renderJobPicker();
+  } catch (e) {}
+}
+
+function renderJobPicker() {
+  const pk = $('jobPicker');
+  if (!jobs.length) { pk.innerHTML = ''; return; }
+  pk.innerHTML = jobs.map(j => `
+    <button class="job-chip ${selectedJobId===j.id?'on':''}"
+            onclick="selectJob('${escapeHtml(j.id)}')">
+      ${escapeHtml(j.id.slice(0,6))} · ${escapeHtml(j.status)}
+    </button>`).join('');
+}
+
+function selectJob(id) {
+  selectedJobId = id;
+  jobSince[id] = jobSince[id] ?? 0;
+  $('console').innerHTML = '<div class="console-empty">Loading…</div>';
+  renderJobPicker();
+  pollJobEvents();
+}
+
+async function pollJobEvents() {
+  if (!selectedJobId) return;
+  try {
+    const since = jobSince[selectedJobId] || 0;
+    const r = await fetch(`/api/jobs/${selectedJobId}/events?since=${since}`);
+    if (!r.ok) return;
+    const d = await r.json();
+    jobSince[selectedJobId] = d.event_count || 0;
+    if ((d.events || []).length) {
+      const c = $('console');
+      const empty = c.querySelector('.console-empty');
+      if (empty) empty.remove();
+      d.events.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'console-line ' + (e.level || '');
+        div.innerHTML = `<span class="time">${escapeHtml(e.t)}</span>` +
+          (e.squad ? `<span class="squad">[S${e.squad}]</span>` : '') +
+          `<span class="msg">${escapeHtml(e.msg)}</span>`;
+        c.appendChild(div);
+      });
+      c.scrollTop = c.scrollHeight;
+      while (c.children.length > 900) c.removeChild(c.firstChild);
+    }
+  } catch (e) {}
+}
+
+async function jobPause(id) {
+  const r = await fetch(`/api/jobs/${id}/pause`, {method:'POST'});
+  const d = await r.json();
+  if (d.ok) { toast('Job paused', 'warn'); refreshJobs(); }
+  else toast('Cannot pause', 'err');
+}
+async function jobResume(id) {
+  const r = await fetch(`/api/jobs/${id}/resume`, {method:'POST'});
+  const d = await r.json();
+  if (d.ok) { toast('Job resumed', 'ok'); refreshJobs(); }
+  else toast('Cannot resume', 'err');
+}
+async function jobStop(id) {
+  if (!confirm('Stop this job?')) return;
+  const r = await fetch(`/api/jobs/${id}/stop`, {method:'POST'});
+  const d = await r.json();
+  if (d.ok) { toast('Job stopped', 'ok'); refreshJobs(); }
+  else toast('Cannot stop', 'err');
+}
+async function jobRestart(id) {
+  if (!confirm('Restart this job? It will log in, create a fresh squad, and start over.')) return;
+  const r = await fetch(`/api/jobs/${id}/restart`, {method:'POST'});
+  const d = await r.json();
+  if (d.ok) { toast('Job restarting…', 'ok'); refreshJobs(); }
+  else toast('Cannot restart', 'err');
+}
+async function jobDelete(id) {
+  if (!confirm('Delete this job? This removes it from the list.')) return;
+  const r = await fetch(`/api/jobs/${id}`, {method:'DELETE'});
+  const d = await r.json();
+  if (d.ok) {
+    toast('Job deleted', 'ok');
+    if (selectedJobId === id) { selectedJobId = null; $('console').innerHTML =
+      '<div class="console-empty">Select a job to view its logs…</div>'; }
+    refreshJobs();
+  } else toast('Cannot delete', 'err');
+}
+
+function clearConsole() { $('console').innerHTML = '<div class="console-empty">Console cleared.</div>'; }
+function scrollConsoleBottom() { const c = $('console'); c.scrollTop = c.scrollHeight; }
+
+function openTerminal() {
+  $('terminalDrawer').classList.add('on');
+  $('drawerBackdrop').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  setTimeout(scrollConsoleBottom, 400);
+  if (termTimer) clearInterval(termTimer);
+  termTimer = setInterval(pollJobEvents, 1500);
+}
+function closeTerminal() {
+  $('terminalDrawer').classList.remove('on');
+  $('drawerBackdrop').classList.remove('on');
+  document.body.style.overflow = '';
+  if (termTimer) { clearInterval(termTimer); termTimer = null; }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTerminal(); });
+
+async function loadUsers() {
+  try {
+    const r = await fetch('/api/admin/users');
+    if (!r.ok) return;
+    const d = await r.json();
+    $('usersBody').innerHTML = (d.users && d.users.length)
+      ? d.users.map(u => `
+        <div class="admin-row">
+          <span class="un">${escapeHtml(u.username)}</span>
+          <span class="cr">${fmt(u.credits)} credits</span>
+          <span class="cr" style="color:#c084fc">+${fmt(u.total_glory)} glory</span>
+          <input type="number" id="cr_${escapeHtml(u.username)}" value="10" min="1">
+          <button onclick="grant('${escapeHtml(u.username)}', 1)">+ Add</button>
+          <button onclick="grant('${escapeHtml(u.username)}', -1)">− Remove</button>
+        </div>`).join('')
+      : '<div style="color:#6d5f8a;font-size:12px">No users yet</div>';
+  } catch (e) {}
+}
+async function grant(username, sign) {
+  const inp = document.getElementById('cr_' + username);
+  const amount = parseInt(inp.value || 0);
+  if (!amount) return;
+  const r = await fetch('/api/admin/credits', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({username, delta: sign * amount})
+  });
+  const d = await r.json();
+  if (d.status === 'ok') { toast(`Credits updated → ${d.credits}`, 'ok'); loadUsers(); }
+  else toast(d.error || 'Failed', 'err');
+}
+
+async function logout() { await fetch('/api/logout', {method:'POST'}); location.href = '/'; }
+
+$('fSquads')?.addEventListener('input', updateDeployCost);
+
+(async function boot() {
+  await loadMe();
+  await refreshJobs();
+  if (jobsTimer) clearInterval(jobsTimer);
+  jobsTimer = setInterval(refreshJobs, 3000);
+})();
+</script>
+</body>
+</html>
