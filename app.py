@@ -21,7 +21,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ═══════════════════════════════════════════════════════════════════
 # CONFIG
 # ═══════════════════════════════════════════════════════════════════
-BOT_NAME = "EREN"
+BOT_NAME = "Saurabh"
 API_URLS = [
     "https://genforglory10.vercel.app",
     "https://genforglory11.vercel.app",
@@ -37,7 +37,7 @@ ADMIN_PASS = "Eren@7587#"
 
 USER_MAX_SQUADS       = 2
 USER_MAX_RUN_SECONDS  = 8 * 3600
-CREDIT_COST_PER_SQUAD = 1
+CREDIT_COST_PER_SQUAD = 4
 MAX_SQUADS_HARD       = 8
 
 # ═══════════════════════════════════════════════════════════════════
