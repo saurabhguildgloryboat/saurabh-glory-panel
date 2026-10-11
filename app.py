@@ -37,7 +37,7 @@ ADMIN_PASS = "Eren@7587#"
 
 USER_MAX_SQUADS       = 2
 USER_MAX_RUN_SECONDS  = 8 * 3600
-CREDIT_COST_PER_SQUAD = 4
+CREDIT_COST_PER_SQUAD = 0
 MAX_SQUADS_HARD       = 8
 
 # ═══════════════════════════════════════════════════════════════════
