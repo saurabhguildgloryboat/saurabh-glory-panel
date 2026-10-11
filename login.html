@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0612">
+  <title>Eren Glory · Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+html, body { margin:0; padding:0; width:100%; min-height:100%; background:#0a0612; }
+html { overflow-x:hidden; }
+body { overflow-x:hidden; }
+
+:root{
+  --bg:#0a0612;
+  --panel:#0e0820;
+  --text:#f0eaff;
+  --muted:#a99ac7;
+  --dim:#6d5f8a;
+
+  --violet:#8b5cf6;
+  --violet-2:#c084fc;
+  --violet-3:#6d28d9;
+
+  --ember:#fb923c;
+  --ember-2:#f59e0b;
+
+  --line:rgba(220,210,255,.08);
+  --line-2:rgba(220,210,255,.14);
+  --r:14px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+.auth-page, .auth-page * { box-sizing:border-box }
+.auth-page input, .auth-page button { font-family:inherit }
+.auth-page button { -webkit-tap-highlight-color:transparent }
+
+.auth-page{
+  min-height:100vh;
+  min-height:100dvh;
+  width:100%;
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+  position:relative;
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+}
+
+/* VISUAL */
+.auth-visual{
+  position:relative;
+  overflow:hidden;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:48px 56px;
+  background:
+    radial-gradient(120% 90% at 12% 4%,rgba(139,92,246,.22),transparent 55%),
+    radial-gradient(90% 70% at 96% 96%,rgba(251,146,60,.14),transparent 55%),
+    linear-gradient(160deg,#180d2e 0%,#0a0612 62%);
+  border-right:1px solid var(--line);
+}
+.auth-visual::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(200,180,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,180,255,.035) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(120% 100% at 30% 30%,#000 10%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 100% at 30% 30%,#000 10%,transparent 78%);
+  pointer-events:none;
+}
+
+.auth-status{
+  position:relative; z-index:4;
+  display:inline-flex; align-items:center; gap:10px;
+  width:max-content;
+  padding:7px 13px 7px 8px;
+  border-radius:100px;
+  border:1px solid var(--line-2);
+  background:rgba(220,210,255,.04);
+  backdrop-filter:blur(12px);
+  font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted);
+}
+.auth-status .dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--ember);
+  box-shadow:0 0 0 4px rgba(251,146,60,.15),0 0 14px rgba(251,146,60,.9);
+  animation:authBeat 2s ease-in-out infinite;
+}
+@keyframes authBeat{50%{opacity:.35;transform:scale(.75)}}
+
+.auth-stage{
+  position:absolute; inset:0; z-index:1;
+  display:flex; align-items:center; justify-content:center;
+  perspective:1200px; pointer-events:none;
+}
+.core{
+  position:relative;
+  width:340px; height:340px;
+  transform-style:preserve-3d;
+  animation:coreFloat 8s ease-in-out infinite;
+}
+@keyframes coreFloat{
+  0%,100%{transform:translateY(-12px) rotateZ(-2deg)}
+  50%{transform:translateY(12px) rotateZ(2deg)}
+}
+.orb{
+  position:absolute; left:50%; top:50%;
+  width:118px; height:118px;
+  margin:-59px 0 0 -59px;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,
+      #fff5e6 0%, #d9b3ff 18%, var(--violet-2) 38%,
+      var(--violet) 58%, var(--violet-3) 78%, #2a0a5c 100%);
+  box-shadow:
+    0 0 60px rgba(139,92,246,.75),
+    0 0 120px rgba(139,92,246,.45),
+    0 0 200px rgba(251,146,60,.20),
+    inset 0 -8px 22px rgba(0,0,0,.4),
+    inset 0 6px 16px rgba(255,240,210,.5);
+  animation:orbPulse 4s ease-in-out infinite;
+}
+@keyframes orbPulse{
+  0%,100%{transform:scale(1); filter:brightness(1)}
+  50%{transform:scale(1.07); filter:brightness(1.16)}
+}
+.orb::after{
+  content:""; position:absolute; inset:-14px; border-radius:50%;
+  background:radial-gradient(circle,rgba(192,132,252,.35),transparent 65%);
+  filter:blur(14px); z-index:-1;
+}
+
+.ring{
+  position:absolute; left:50%; top:50%;
+  border-radius:50%;
+  border:1.5px solid transparent;
+  transform-style:preserve-3d;
+}
+.ring::before{
+  content:""; position:absolute; inset:-1px; border-radius:50%;
+  border:1.5px solid transparent;
+  border-top-color:rgba(192,132,252,.95);
+  border-right-color:rgba(192,132,252,.25);
+  filter:drop-shadow(0 0 6px rgba(192,132,252,.8));
+}
+.ring::after{
+  content:""; position:absolute; inset:-1px; border-radius:50%;
+  border:1.5px solid transparent;
+  border-bottom-color:rgba(251,146,60,.9);
+  border-left-color:rgba(251,146,60,.25);
+  filter:drop-shadow(0 0 6px rgba(251,146,60,.7));
+}
+.ring-a{width:270px;height:270px;margin:-135px 0 0 -135px;animation:ringA 14s linear infinite}
+.ring-b{width:220px;height:220px;margin:-110px 0 0 -110px;animation:ringB 10s linear infinite}
+.ring-c{width:310px;height:310px;margin:-155px 0 0 -155px;animation:ringC 22s linear infinite}
+@keyframes ringA{from{transform:rotateX(72deg) rotateZ(0)}to{transform:rotateX(72deg) rotateZ(360deg)}}
+@keyframes ringB{from{transform:rotateX(-64deg) rotateY(18deg) rotateZ(360deg)}to{transform:rotateX(-64deg) rotateY(18deg) rotateZ(0)}}
+@keyframes ringC{from{transform:rotateX(80deg) rotateY(-22deg) rotateZ(0)}to{transform:rotateX(80deg) rotateY(-22deg) rotateZ(360deg)}}
+
+.shard{
+  position:absolute; left:50%; top:50%;
+  transform-style:preserve-3d;
+  animation:shardOrbit 16s linear infinite;
+}
+.shard > span{
+  display:block; width:14px; height:14px;
+  background:linear-gradient(135deg,var(--violet-2),var(--violet-3));
+  box-shadow:0 0 14px rgba(139,92,246,.85),inset 0 -2px 4px rgba(0,0,0,.5);
+  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+}
+.shard:nth-child(2){animation-delay:-2s}
+.shard:nth-child(2) > span{background:linear-gradient(135deg,var(--ember),var(--ember-2));box-shadow:0 0 14px rgba(251,146,60,.9),inset 0 -2px 4px rgba(0,0,0,.5)}
+.shard:nth-child(3){animation-delay:-5s}
+.shard:nth-child(4){animation-delay:-8s}
+.shard:nth-child(4) > span{background:linear-gradient(135deg,var(--ember),var(--ember-2));box-shadow:0 0 14px rgba(251,146,60,.9),inset 0 -2px 4px rgba(0,0,0,.5)}
+.shard:nth-child(5){animation-delay:-11s}
+.shard:nth-child(6){animation-delay:-14s}
+.shard:nth-child(6) > span{background:linear-gradient(135deg,var(--ember),var(--ember-2));box-shadow:0 0 14px rgba(251,146,60,.9),inset 0 -2px 4px rgba(0,0,0,.5)}
+
+.shard-1{animation-name:shardOrbit1}
+.shard-2{animation-name:shardOrbit2}
+.shard-3{animation-name:shardOrbit3}
+.shard-4{animation-name:shardOrbit4}
+.shard-5{animation-name:shardOrbit5}
+.shard-6{animation-name:shardOrbit6}
+@keyframes shardOrbit1{from{transform:rotateY(0) translateX(140px) rotateY(0)}to{transform:rotateY(360deg) translateX(140px) rotateY(-360deg)}}
+@keyframes shardOrbit2{from{transform:translate3d(0,-30px,0) rotateY(60deg) translateX(158px) rotateY(-60deg)}to{transform:translate3d(0,-30px,0) rotateY(420deg) translateX(158px) rotateY(-420deg)}}
+@keyframes shardOrbit3{from{transform:translate3d(0,40px,0) rotateY(120deg) translateX(130px) rotateY(-120deg)}to{transform:translate3d(0,40px,0) rotateY(480deg) translateX(130px) rotateY(-480deg)}}
+@keyframes shardOrbit4{from{transform:translate3d(0,-50px,0) rotateY(180deg) translateX(150px) rotateY(-180deg)}to{transform:translate3d(0,-50px,0) rotateY(540deg) translateX(150px) rotateY(-540deg)}}
+@keyframes shardOrbit5{from{transform:translate3d(0,60px,0) rotateY(240deg) translateX(126px) rotateY(-240deg)}to{transform:translate3d(0,60px,0) rotateY(600deg) translateX(126px) rotateY(-600deg)}}
+@keyframes shardOrbit6{from{transform:translate3d(0,20px,0) rotateY(300deg) translateX(165px) rotateY(-300deg)}to{transform:translate3d(0,20px,0) rotateY(660deg) translateX(165px) rotateY(-660deg)}}
+
+.spark{
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle at 32% 30%,#fff0d9,var(--ember) 48%,#7a3410 100%);
+  box-shadow:0 0 22px rgba(251,146,60,.65),inset 0 -3px 8px rgba(0,0,0,.5);
+  animation:sparkFloat 7s ease-in-out infinite;
+}
+.spark-1{width:14px;height:14px;left:14%;top:24%;animation-delay:-1s}
+.spark-2{width:9px;height:9px;right:16%;top:36%;animation-delay:-3.4s;background:radial-gradient(circle at 32% 30%,#f0d9ff,var(--violet-2) 48%,#3a0e79 100%);box-shadow:0 0 22px rgba(139,92,246,.65),inset 0 -3px 8px rgba(0,0,0,.5)}
+.spark-3{width:11px;height:11px;left:20%;bottom:22%;animation-delay:-5.2s}
+@keyframes sparkFloat{
+  0%,100%{transform:translate3d(0,0,0) scale(1);opacity:.85}
+  50%{transform:translate3d(6px,-22px,40px) scale(1.15);opacity:1}
+}
+
+.auth-visual-bottom{ position:relative; z-index:3; max-width:520px }
+.auth-visual-title{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:clamp(34px,4.4vw,54px);
+  font-weight:500; line-height:1.05;
+  letter-spacing:-.022em; margin:0 0 16px;
+}
+.auth-visual-title em{
+  font-style:italic; font-weight:400;
+  background:linear-gradient(120deg,var(--violet-2),var(--ember));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.auth-visual-sub{
+  color:var(--muted); font-size:14.5px;
+  line-height:1.65; max-width:430px; margin:0 0 32px;
+}
+.auth-metrics{
+  display:flex; gap:34px;
+  padding-top:26px;
+  border-top:1px solid var(--line);
+}
+.auth-metric .n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:19px; font-weight:600; color:var(--text);
+}
+.auth-metric .l{
+  margin-top:4px; font-size:10px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--dim);
+}
+
+/* PANEL */
+.auth-panel{
+  position:relative; min-width:0;
+  display:flex; align-items:center; justify-content:center;
+  padding:40px 32px;
+  background:linear-gradient(180deg,#0e0820,#070310);
+}
+.auth-panel::before{
+  content:""; position:absolute; top:-140px; right:-140px;
+  width:420px; height:420px; border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,246,.16),transparent 66%);
+  pointer-events:none;
+}
+.auth-panel::after{
+  content:""; position:absolute; bottom:-160px; left:-120px;
+  width:380px; height:380px; border-radius:50%;
+  background:radial-gradient(circle,rgba(251,146,60,.10),transparent 66%);
+  pointer-events:none;
+}
+.auth-card{
+  position:relative; z-index:2;
+  width:min(400px,100%);
+  animation:cardIn .7s var(--ease) both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:none}
+}
+.auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:34px}
+.auth-logo{
+  position:relative; width:44px;height:44px;flex:none;
+  display:grid;place-items:center; border-radius:13px; color:#fff;
+  background:linear-gradient(150deg,var(--violet-2),var(--violet) 45%,var(--ember) 130%);
+  box-shadow:
+    0 10px 26px -10px rgba(139,92,246,.75),
+    0 6px 20px -10px rgba(251,146,60,.55),
+    inset 0 1px 0 rgba(255,255,255,.4),
+    inset 0 -2px 6px rgba(0,0,0,.2);
+}
+.auth-logo::after{content:"";position:absolute;inset:0;border-radius:13px;border:1px solid rgba(255,255,255,.2)}
+.auth-brand-name{font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:600}
+.auth-brand-sub{
+  font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);margin-top:2px;
+}
+.auth-title{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:31px;font-weight:500;letter-spacing:-.022em;
+  line-height:1.15;margin:0 0 8px;
+}
+.auth-desc{color:var(--muted);font-size:13.5px;margin:0 0 26px}
+
+.auth-msg{padding:11px 13px;border-radius:10px;font-size:12.5px;margin:0 0 16px;display:none}
+.auth-msg.on{display:block}
+.auth-msg.err{color:#ff91a6;background:rgba(244,63,94,.10);border:1px solid rgba(244,63,94,.32)}
+.auth-msg.ok{color:#e0c6ff;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35)}
+
+.auth-field{margin-bottom:14px}
+.auth-field label{
+  display:block;margin-bottom:7px;
+  font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim);
+}
+.auth-input-wrap{position:relative}
+.auth-input-wrap > i{
+  position:absolute;left:15px;top:50%;transform:translateY(-50%);
+  color:#5f4c82;font-size:12px;pointer-events:none;
+  transition:color .22s var(--ease);
+}
+.auth-input{
+  width:100%;height:48px;padding:0 15px 0 42px;
+  border-radius:var(--r);border:1px solid var(--line-2);
+  background:rgba(220,210,255,.03);
+  color:var(--text);font-size:13.5px;
+  font-family:'JetBrains Mono',monospace;
+  outline:none;transition:all .22s var(--ease);
+}
+.auth-input::placeholder{color:#5f4c82;font-family:'Plus Jakarta Sans',sans-serif}
+.auth-input:focus{
+  border-color:rgba(139,92,246,.28);
+  background:rgba(139,92,246,.06);
+  box-shadow:0 0 0 4px rgba(139,92,246,.10);
+}
+.auth-input-wrap:focus-within > i{color:var(--violet-2)}
+
+.auth-pw-toggle{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  width:36px;height:36px;display:grid;place-items:center;
+  border:0;border-radius:9px;color:#5f4c82;background:transparent;
+  transition:all .2s var(--ease);cursor:pointer;
+}
+.auth-pw-toggle:hover{color:var(--muted);background:rgba(220,210,255,.06)}
+
+.auth-btn{
+  width:100%;height:50px;margin-top:8px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  border:0;border-radius:var(--r);
+  background:linear-gradient(135deg,var(--violet-2),var(--violet) 45%,var(--ember) 130%);
+  color:#fff;font-size:13.5px;font-weight:700;letter-spacing:.01em;
+  box-shadow:
+    0 14px 32px -14px rgba(139,92,246,.8),
+    0 10px 26px -16px rgba(251,146,60,.55),
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -2px 5px rgba(0,0,0,.2);
+  cursor:pointer;transition:all .25s var(--ease);
+}
+.auth-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 20px 42px -16px rgba(139,92,246,.9),
+    0 14px 32px -18px rgba(251,146,60,.7),
+    inset 0 1px 0 rgba(255,255,255,.4),
+    inset 0 -2px 5px rgba(0,0,0,.2);
+}
+.auth-btn:active{transform:translateY(0) scale(.985)}
+.auth-btn:disabled{opacity:.65;pointer-events:none}
+
+.auth-divider{
+  display:flex;align-items:center;gap:14px;margin:22px 0;
+  color:#4c3d6b;font-size:10.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+}
+.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.auth-switch{margin-top:24px;text-align:center;color:var(--muted);font-size:12.5px}
+.auth-switch a{color:var(--violet-2);font-weight:700;text-decoration:none}
+.auth-switch a:hover{text-decoration:underline}
+
+.auth-foot{margin-top:26px;font-size:11.5px;line-height:1.7;color:#4c3d6b;text-align:center}
+
+.auth-spin{
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid currentColor;border-top-color:transparent;
+  animation:authSpin .7s linear infinite;
+}
+@keyframes authSpin{to{transform:rotate(360deg)}}
+
+@media(max-width:1080px){
+  .auth-visual{padding:40px 36px}
+  .auth-panel{padding:40px 28px}
+  .auth-metrics{gap:26px}
+}
+@media(max-width:900px){
+  .auth-page{grid-template-columns:minmax(0,1fr);overflow:auto}
+  .auth-visual{min-height:520px;padding:38px 34px 34px;border-right:none;border-bottom:1px solid var(--line)}
+  .auth-stage{position:relative;height:300px;margin:8px 0}
+  .auth-visual-bottom{max-width:none}
+  .auth-panel{justify-content:flex-start;padding:40px 34px 56px}
+  .auth-panel::before,.auth-panel::after{display:none}
+}
+@media(max-width:560px){
+  .auth-visual{padding:24px 20px 24px;min-height:440px}
+  .auth-stage{height:200px;margin:2px 0 8px;perspective:800px}
+  .core{width:240px;height:240px}
+  .orb{width:88px;height:88px;margin:-44px 0 0 -44px}
+  .ring-a{width:190px;height:190px;margin:-95px 0 0 -95px}
+  .ring-b{width:154px;height:154px;margin:-77px 0 0 -77px}
+  .ring-c{width:218px;height:218px;margin:-109px 0 0 -109px}
+  .auth-visual-title{font-size:29px}
+  .auth-visual-sub{font-size:13px;line-height:1.55;margin-bottom:20px}
+  .auth-metrics{gap:18px;padding-top:18px}
+  .auth-metric .n{font-size:16px}
+  .auth-metric .l{font-size:9px}
+  .auth-panel{padding:30px 22px 40px}
+  .auth-title{font-size:26px}
+}
+@media(max-width:820px){ .auth-input{font-size:16px} }
+@media(prefers-reduced-motion:reduce){
+  .auth-page *,
+  .auth-page *::before,
+  .auth-page *::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+  </style>
+</head>
+<body>
+
+<main class="auth-page">
+
+  <section class="auth-visual">
+    <div class="auth-status">
+      <span class="dot"></span>
+      Eren Glory · Operational
+    </div>
+
+    <div class="auth-stage" aria-hidden="true">
+      <div class="core">
+        <div class="orb"></div>
+        <div class="ring ring-a"></div>
+        <div class="ring ring-b"></div>
+        <div class="ring ring-c"></div>
+        <div class="shard shard-1"><span></span></div>
+        <div class="shard shard-2"><span></span></div>
+        <div class="shard shard-3"><span></span></div>
+        <div class="shard shard-4"><span></span></div>
+        <div class="shard shard-5"><span></span></div>
+        <div class="shard shard-6"><span></span></div>
+        <span class="spark spark-1"></span>
+        <span class="spark spark-2"></span>
+        <span class="spark spark-3"></span>
+      </div>
+    </div>
+
+    <div class="auth-visual-bottom">
+      <h1 class="auth-visual-title">
+        Rise with <em>Eren</em>,<br>conquer glory.
+      </h1>
+      <p class="auth-visual-sub">
+        Command your squads, track every match, and forge your path to
+        the top of the leaderboard.
+      </p>
+
+      <div class="auth-metrics">
+        <div class="auth-metric">
+          <div class="n">99.9%</div>
+          <div class="l">Uptime</div>
+        </div>
+        <div class="auth-metric">
+          <div class="n">2.5s</div>
+          <div class="l">Sync rate</div>
+        </div>
+        <div class="auth-metric">
+          <div class="n">24/7</div>
+          <div class="l">Monitoring</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="auth-panel">
+    <div class="auth-card">
+
+      <div class="auth-brand">
+        <div class="auth-logo"><i class="fas fa-fire"></i></div>
+        <div>
+          <div class="auth-brand-name">Eren Glory</div>
+          <div class="auth-brand-sub">Command Center</div>
+        </div>
+      </div>
+
+      <h2 class="auth-title" id="pageTitle">Welcome Back</h2>
+      <p class="auth-desc" id="pageSub">Login to your dashboard.</p>
+
+      <div class="auth-msg" id="msg"></div>
+
+      <form id="signupForm" autocomplete="off" style="display:none">
+        <div class="auth-field">
+          <label for="email">Gmail Address</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" class="auth-input" placeholder="you@gmail.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="username">Username (auto)</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" class="auth-input" readonly placeholder="Generated from email">
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="password">Password</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" class="auth-input" placeholder="Min 6 characters" autocomplete="new-password" required>
+            <button class="auth-pw-toggle" type="button" onclick="togglePw('password',this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="confirm">Confirm Password</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="confirm" class="auth-input" placeholder="Re-enter password" autocomplete="new-password" required>
+            <button class="auth-pw-toggle" type="button" onclick="togglePw('confirm',this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-btn" id="signupBtn">
+          <i class="fas fa-user-plus"></i>
+          <span>Create Account</span>
+        </button>
+      </form>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="auth-field">
+          <label for="loginUser">Username</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-user"></i>
+            <input type="text" id="loginUser" class="auth-input" placeholder="username" autocomplete="username" required>
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="loginPass">Password</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="loginPass" class="auth-input" placeholder="Password" autocomplete="current-password" required>
+            <button class="auth-pw-toggle" type="button" onclick="togglePw('loginPass',this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-btn" id="loginBtn">
+          <i class="fas fa-right-to-bracket"></i>
+          <span>Login</span>
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>Secure access</span></div>
+
+      <div class="auth-switch">
+        <span id="switchText">Don't have an account?</span>
+        <a href="#" id="switchLink" onclick="toggleMode(event)"> Sign up here</a>
+      </div>
+
+      <p class="auth-foot">Secure access to your Eren Glory dashboard.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+let mode = new URLSearchParams(location.search).get('mode') === 'signup' ? 'signup' : 'login';
+const $ = id => document.getElementById(id);
+
+function togglePw(id, el){
+  const input = $(id);
+  const icon = el.querySelector('i');
+  if(input.type === 'password'){ input.type = 'text'; icon.className = 'fas fa-eye-slash'; }
+  else{ input.type = 'password'; icon.className = 'fas fa-eye'; }
+}
+
+function usernameFromEmail(email){
+  if(!email || !email.includes('@')) return '';
+  let p = email.split('@')[0].toLowerCase().replace(/[^a-z0-9._]/g,'');
+  p = p.replace(/^[._]+|[._]+$/g,'').replace(/[._]{2,}/g,'_').slice(0,24);
+  if(/^[0-9]/.test(p)) p = 'user' + p;
+  if(p.length < 3) p = 'user_' + Math.random().toString(36).slice(2,7);
+  return p;
+}
+
+$('email')?.addEventListener('input', e => {
+  const em = e.target.value.trim().toLowerCase();
+  $('username').value = (em.includes('@') && em.endsWith('@gmail.com')) ? usernameFromEmail(em) : '';
+});
+
+function showMsg(text, cls){
+  const m = $('msg'); m.textContent = text; m.className = 'auth-msg on ' + cls;
+}
+
+function toggleMode(e){
+  e.preventDefault();
+  mode = mode === 'signup' ? 'login' : 'signup';
+  $('signupForm').style.display = mode === 'signup' ? 'block' : 'none';
+  $('loginForm').style.display  = mode === 'login'  ? 'block' : 'none';
+  $('pageTitle').textContent = mode === 'signup' ? 'Create Account' : 'Welcome Back';
+  $('pageSub').textContent   = mode === 'signup'
+    ? "Enter your Gmail — we'll auto-generate a username."
+    : 'Login to your dashboard.';
+  $('switchText').textContent = mode === 'signup' ? 'Already have an account?' : "Don't have an account?";
+  $('switchLink').textContent = mode === 'signup' ? 'Login here' : 'Sign up here';
+  $('msg').className = 'auth-msg';
+}
+
+$('signupForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = $('email').value.trim();
+  const username = $('username').value.trim();
+  const password = $('password').value;
+  const confirm = $('confirm').value;
+
+  if(!email.endsWith('@gmail.com')) return showMsg('Only @gmail.com accepted','err');
+  if(password.length < 6) return showMsg('Password must be 6+ chars','err');
+  if(password !== confirm) return showMsg('Passwords do not match','err');
+
+  const btn = $('signupBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="auth-spin"></span><span>Creating...</span>';
+
+  try{
+    const r = await fetch('/api/signup',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,username,password})});
+    const d = await r.json();
+    if(d.status === 'ok'){
+      showMsg('Account created!','ok');
+      setTimeout(() => location.href='/dashboard', 700);
+    } else {
+      showMsg(d.error || 'Signup failed','err');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-user-plus"></i><span>Create Account</span>';
+    }
+  }catch(err){
+    showMsg('Network error','err');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-user-plus"></i><span>Create Account</span>';
+  }
+});
+
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const username = $('loginUser').value.trim();
+  const password = $('loginPass').value;
+  const btn = $('loginBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="auth-spin"></span><span>Logging in...</span>';
+
+  try{
+    const r = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username,password})});
+    const d = await r.json();
+    if(d.status === 'ok'){
+      showMsg('Login successful!','ok');
+      setTimeout(() => location.href='/dashboard', 600);
+    } else {
+      showMsg(d.error || 'Invalid credentials','err');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-right-to-bracket"></i><span>Login</span>';
+    }
+  }catch(err){
+    showMsg('Network error','err');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-right-to-bracket"></i><span>Login</span>';
+  }
+});
+
+(function(){
+  const m = new URLSearchParams(location.search).get('mode') === 'signup' ? 'signup' : 'login';
+  mode = m;
+  const signup = $('signupForm');
+  const login  = $('loginForm');
+  if(!signup || !login) return;
+  signup.style.display = m === 'signup' ? 'block' : 'none';
+  login.style.display  = m === 'login'  ? 'block' : 'none';
+  $('pageTitle').textContent = m === 'signup' ? 'Create Account' : 'Welcome Back';
+  $('pageSub').textContent   = m === 'signup'
+    ? "Enter your Gmail — we'll auto-generate a username."
+    : 'Login to your dashboard.';
+  $('switchText').textContent = m === 'signup' ? 'Already have an account?' : "Don't have an account?";
+  $('switchLink').textContent = m === 'signup' ? 'Login here' : 'Sign up here';
+})();
+</script>
+</body>
+</html>
